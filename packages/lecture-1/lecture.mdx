@@ -1,0 +1,328 @@
+import { Appear, Notes, Image } from 'mdx-deck';
+import { Split, FullScreenCode } from 'mdx-deck/layouts';
+
+export { theme } from './theme';
+
+# Привет JavaScript
+
+код: [https://github.com/Andrey-Bazhanov/js-courses](https://github.com/Andrey-Bazhanov/js-courses)
+
+презентация: [https://js-courses-lecture-1.netlify.com/](https://js-courses-lecture-1.netlify.com/)
+
+<Notes>А ты любопытный!</Notes>
+
+---
+
+## JavaScript (ECMAScript)
+
+Cоздавался - чтобы сделать web-странички «живыми»
+
+<Appear>
+  <p>Но все изменилось!</p>
+</Appear>
+
+<Notes>spa вот это все</Notes>
+
+---
+
+## Поддерживаемые платформы
+
+<ul>
+  <Appear>
+    <li>браузер</li>
+    <li>
+      сервер <a href="https://nodejs.org/en/">Node.js</a>
+    </li>
+    <li>
+      "нативные" мобильные приложения:
+      <a href="https://facebook.github.io/react-native/">ReactNative</a>, <a href="https://www.nativescript.org/">NativeScript</a>
+    </li>
+    <li>
+      кросплатформенные десктоп приложения:{' '}
+      <a href="https://electronjs.org/">Electron</a>
+      <br />
+      (vscode, atom, slack...)
+    </li>
+    <li>
+      IOT: <a href="http://johnny-five.io/">Johnny-Five</a>
+      <br />
+      или борды с встроенным интерпретатором JS{' '}
+      <a href="http://amperka.ru/product/iskra-js">Iskra JS</a>
+    </li>
+  </Appear>
+</ul>
+
+---
+
+# Работа JS в браузере
+
+<Notes>
+  сосредоточимся на браузере, мы же фронтендщики и т.д. Для начала нужно понять
+  как "работает" страница в браузере
+</Notes>
+
+---
+
+## Как работает страница (упрощенно)
+
+процесс отображения страницы - потоковый
+
+<Notes>
+  Если у вас был медленный интернет, то вы помните как грузятся картинки (снизу
+  вверх)
+</Notes>
+
+---
+
+<Notes>
+  пояснить за жизненный цикл скрипта (загрузка, парсинг, интерпритация, type:
+  async, deffer (гарантирует порядок), module)
+</Notes>
+
+<Split>
+  <img src="https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2014/10/1413373267crp-6.png" />
+
+  <ul style={{ marginLeft: 32 }}>
+    <Appear>
+      <li>загрузка/парсинг html</li>
+      <li>загрузка ассетов</li>
+      <li>создание DOM, CSSOM</li>
+      <li>выполненеие js</li>
+      <li>рендер</li>
+    </Appear>
+  </ul>
+</Split>
+
+---
+
+## Разновидности `<script>`
+
+#### Инлайн
+
+```html
+<script>
+  alert('Мама я в телевизоре!');
+</script>
+```
+
+#### Внешние
+
+```html
+<script src="/foo/bar.js" />
+```
+
+---
+
+### Доп. параметры внешних скриптов
+
+<Notes>
+  напомнить процесс рендера страницы, привести пример с коллизией async
+  скриптов, и рассказать что все это ввобще ерунда. webpack наше все.
+</Notes>
+
+<ul>
+  <Appear>
+    <li>
+      <code>async</code> не блокирует рендер
+    </li>
+    <li>
+      <code>deffer</code> тоже самое, но гарантирует порядок
+    </li>
+    <li>
+      <code>module</code> для es2015 модулей
+    </li>
+  </Appear>
+</ul>
+
+---
+
+# Типы
+
+<Notes>язык с динамической типизацией и т.д</Notes>
+
+---
+
+<Notes>
+  Symbol - примитивный тип данных, экземпляры которого уникальны и неизменяемы. В
+  некоторых языках программирования символы также называются атомами.
+
+Object - тип данных лежащий в основе более сложных вещей (функций, массивов и т.д.)
+
+Так же ES-2015 появились новые типы коллекций в JavaScript: Set, Map, WeakSet и WeakMap.
+
+Примитивы передаются по значению, объекты по ссылке
+
+</Notes>
+
+- Примитивы:
+
+  - boolean
+  - null
+  - undefined
+  - string
+  - BigInt
+  - Symbol
+
+- Object
+
+---
+
+### Операторы
+
+```js
+1 > 2;
+```
+
+---
+
+### Циклы
+
+for, while etc
+
+---
+
+### Условия
+
+```js
+if (a > b) {
+  c = 1;
+} else {
+  c = 2;
+}
+```
+
+---
+
+<Notes>
+  Т.к js язык с динамической типизацией, это значит что типы выводятся в
+  процессе выполнения. Но для корректной работы приложения, необходимо понимать
+  с каким типом мы сейчас работаем, для этого используется такой оператор как
+  typeof. Но есть нюанс...
+</Notes>
+
+## typeof
+
+<Appear>
+
+`typeof 2; // => 'number'`
+
+`typeof 'cheburek'; // => 'string'`
+
+`typeof {}; // => 'object'`
+
+`typeof null; // => 'object'`
+
+</Appear>
+
+---
+
+<Notes>
+  Так же в js есть механизм приведения типов, который призван упростить работy.
+
+Но есть нюанс...
+
+</Notes>
+
+# Приведение типов
+
+<Appear>
+
+Явное: `1.toString() // '1'`
+
+<img src="https://cs9.pikabu.ru/post_img/2016/09/15/7/147393909915812096.jpg" />
+
+</Appear>
+
+---
+
+<Notes>
+  тип данных, состоящих из пар колюч значения
+  ключ - строка (не явно вызывается toString())
+  значение - any
+
+лежит в основе всех "сложных" типов (функций, массивов и т.д)
+
+</Notes>
+
+# Object
+
+```js
+{
+  a: 1,
+  b: {
+    c: 'asd'
+  },
+}
+```
+
+---
+
+# Array
+
+```js
+arr = [1, 2]; // arr[0] -> 1
+```
+
+---
+
+## Функции
+
+```js
+function foo() {
+  alert('test');
+}
+```
+
+```js
+const foo = () => {
+  alert('test');
+};
+```
+
+---
+
+<Notes>
+  Все переменные внутри функции – это свойства специального внутреннего объекта
+  LexicalEnvironment, который создаётся при её запуске.
+
+Аналогия с тонированной тачкой
+
+</Notes>
+
+### Замыкания, область видимости
+
+- глобальный объект
+- скоуп функции
+
+```js
+const a = 1;
+function foo() {
+  const c = 2;
+  // a = 2
+}
+
+// c is not defined
+```
+
+---
+
+# Cпасибо за внимание
+
+---
+
+### Для самостоятельного изучения (лекции 1, 2)
+
+<div style={{ fontSize: 24 }}>
+
+[learn.javascript.ru](https://learn.javascript.ru/)
+
+- обязательно: Введение Основы JavaScript Качество кода Структуры данных Замыкания, область видимости Методы объектов и контекст вызова Некоторые другие возможности Современные возможности ES-2015
+
+- ознакомиться с "Часть вторая"
+
+### Дополнительно
+
+[Addy Osmani - Learning JavaScript Design Patterns](https://addyosmani.com/resources/essentialjsdesignpatterns/book/)
+[JavaScript: The Good Parts By Douglas Crockford] в качестве доп. основы
+
+</div>
